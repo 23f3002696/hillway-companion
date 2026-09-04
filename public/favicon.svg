@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="16" fill="#1f4832"/>
+  <path d="M12 48L32 18L52 48H12Z" fill="#3ea873" opacity="0.3"/>
+  <path d="M22 48L36 28L50 48H22Z" fill="#3ea873" opacity="0.6"/>
+  <!-- Train tracks & engine -->
+  <path d="M8 52H56" stroke="#e5a93c" stroke-width="4" stroke-linecap="round"/>
+  <path d="M16 50V54M28 50V54M40 50V54M52 50V54" stroke="#d4653a" stroke-width="3"/>
+  <circle cx="32" cy="38" r="8" fill="#d4653a"/>
+  <rect x="28" y="24" width="8" height="8" fill="#f4b84b" rx="2"/>
+  <circle cx="32" cy="38" r="4" fill="#f2f7f4"/>
+</svg>
+
