@@ -65,19 +65,19 @@ export const Phrasebook: React.FC<PhrasebookProps> = ({ isSunlight }) => {
     <div className="space-y-6 pb-24">
       {/* Header Panel */}
       <div
-        className={`p-6 sm:p-8 rounded-3xl transition-all duration-300 ${
+        className={`p-4 sm:p-6 md:p-8 rounded-3xl transition-all duration-300 ${
           isSunlight
             ? 'card-sunlight'
             : 'glass-panel text-parchment'
         }`}
       >
-        <div className="flex items-center justify-between border-b border-inherit/20 pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-inherit/20 pb-4">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-2xl bg-pine-deep/80 border border-rail-gold/40 flex items-center justify-center text-rail-gold shadow-sm">
               <Languages className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-xl font-bold font-serif tracking-tight text-inherit">
+              <h2 className="text-lg sm:text-xl font-bold font-serif tracking-tight text-inherit">
                 Zero-Bars Hill Phrasebook
               </h2>
               <p className="text-xs text-himalaya-mist font-medium">
@@ -85,13 +85,13 @@ export const Phrasebook: React.FC<PhrasebookProps> = ({ isSunlight }) => {
               </p>
             </div>
           </div>
-          <span className="text-[10px] uppercase font-mono font-bold px-3 py-1 rounded-full bg-pine-deep text-emerald-300 border border-emerald-500/40 shadow-sm">
+          <span className="text-[10px] uppercase font-mono font-bold px-3 py-1 rounded-full bg-pine-deep text-emerald-300 border border-emerald-500/40 shadow-sm shrink-0 self-start sm:self-auto">
             4 Languages
           </span>
         </div>
 
         {/* Target Language Switcher */}
-        <div className="mt-5 flex rounded-2xl p-1.5 bg-[#08150f] border border-rail-gold/30 gap-1.5">
+        <div className="mt-4 sm:mt-5 flex rounded-2xl p-1 sm:p-1.5 bg-[#08150f] border border-rail-gold/30 gap-1 sm:gap-1.5">
           <button
             onClick={() => setSelectedLang('nepali')}
             className={`flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 ${
@@ -195,7 +195,7 @@ export const Phrasebook: React.FC<PhrasebookProps> = ({ isSunlight }) => {
             return (
               <div
                 key={item.id}
-                className={`p-5 sm:p-6 rounded-3xl transition-all duration-200 flex flex-col justify-between ${
+                className={`p-4 sm:p-5 md:p-6 rounded-3xl transition-all duration-200 flex flex-col justify-between ${
                   isSunlight
                     ? 'card-sunlight'
                     : 'glass-panel text-parchment hover:border-rail-gold/50'

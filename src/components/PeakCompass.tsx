@@ -55,7 +55,7 @@ export const PeakCompass: React.FC<PeakCompassProps> = ({ isSunlight }) => {
     <div className="space-y-6 pb-24">
       {/* Compass HUD Panel with Stitch Brass Surveyor Aesthetic */}
       <div
-        className={`p-6 sm:p-8 rounded-3xl text-center transition-all duration-300 ${
+        className={`p-4 sm:p-6 md:p-8 rounded-3xl text-center transition-all duration-300 ${
           isSunlight
             ? 'card-sunlight'
             : 'glass-panel text-parchment'
@@ -73,9 +73,9 @@ export const PeakCompass: React.FC<PeakCompassProps> = ({ isSunlight }) => {
 
         {/* Big Heading Display */}
         <div className="my-2">
-          <div className="text-4xl sm:text-6xl font-extrabold tracking-tight text-amber-glow font-mono text-glow">
+          <div className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-amber-glow font-mono text-glow">
             {heading}°
-            <span className="text-xl sm:text-3xl ml-3 font-serif text-parchment font-bold">
+            <span className="text-lg sm:text-xl md:text-3xl ml-2 sm:ml-3 font-serif text-parchment font-bold">
               {getCardinalDirection(heading)}
             </span>
           </div>
@@ -96,7 +96,7 @@ export const PeakCompass: React.FC<PeakCompassProps> = ({ isSunlight }) => {
         </div>
 
         {/* Visual Rotating Compass Dial */}
-        <div className="relative w-56 h-56 mx-auto my-6 flex items-center justify-center">
+        <div className="relative w-44 h-44 sm:w-52 sm:h-52 md:w-56 md:h-56 mx-auto my-4 sm:my-6 flex items-center justify-center">
           {/* Outer Brass Ring */}
           <div className="absolute inset-0 rounded-full border-4 border-pine-deep/80 shadow-[inset_0_4px_18px_rgba(0,0,0,0.7)] bg-[#0a150e]" />
           <div className="absolute inset-2 rounded-full border border-dashed border-rail-gold/30" />
@@ -154,7 +154,7 @@ export const PeakCompass: React.FC<PeakCompassProps> = ({ isSunlight }) => {
         </div>
 
         {/* Manual Heading Slider */}
-        <div className="pt-2 px-4 max-w-md mx-auto">
+        <div className="pt-2 px-2 sm:px-4 max-w-md mx-auto">
           <div className="flex justify-between text-[11px] text-himalaya-mist font-mono mb-2">
             <span>0° N</span>
             <span>90° E</span>
@@ -188,7 +188,7 @@ export const PeakCompass: React.FC<PeakCompassProps> = ({ isSunlight }) => {
           <span className="text-xs text-himalaya-mist font-mono">Tap any peak to calibrate dial</span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-3 sm:gap-4">
           {HIMALAYAN_PEAKS.map((peak) => {
             const delta = getBearingDelta(peak.bearingDeg, heading);
             const isCurrentTarget = selectedPeak.id === peak.id;
@@ -202,7 +202,7 @@ export const PeakCompass: React.FC<PeakCompassProps> = ({ isSunlight }) => {
                   setHeading(peak.bearingDeg);
                   setIsHardwareCompass(false);
                 }}
-                className={`p-5 rounded-3xl cursor-pointer transition-all duration-200 flex flex-col justify-between ${
+                className={`p-4 sm:p-5 rounded-3xl cursor-pointer transition-all duration-200 flex flex-col justify-between ${
                   isSunlight
                     ? 'card-sunlight'
                     : isLookingAtIt

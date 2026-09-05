@@ -86,19 +86,19 @@ export const HeritageGuide: React.FC<HeritageGuideProps> = ({
     <div className="space-y-6 pb-24">
       {/* Header & Local RAG Search Panel */}
       <div
-        className={`p-6 sm:p-8 rounded-3xl transition-all duration-300 ${
+        className={`p-4 sm:p-6 md:p-8 rounded-3xl transition-all duration-300 ${
           isSunlight
             ? 'card-sunlight'
             : 'glass-panel text-parchment'
         }`}
       >
-        <div className="flex items-center justify-between gap-3 border-b border-inherit/20 pb-4 mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-inherit/20 pb-4 mb-4">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-2xl bg-pine-deep/80 border border-rail-gold/40 flex items-center justify-center text-rail-gold shadow-sm">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-xl font-bold font-serif tracking-tight text-inherit">
+              <h2 className="text-lg sm:text-xl font-bold font-serif tracking-tight text-inherit">
                 UNESCO Heritage AI Guide
               </h2>
               <p className="text-xs text-himalaya-mist font-medium">
@@ -107,7 +107,7 @@ export const HeritageGuide: React.FC<HeritageGuideProps> = ({
             </div>
           </div>
 
-          <span className="text-[10px] uppercase font-mono font-bold px-3 py-1 rounded-full bg-pine-deep text-emerald-300 border border-emerald-500/40 flex items-center gap-1.5 shadow-sm">
+          <span className="text-[10px] uppercase font-mono font-bold px-3 py-1 rounded-full bg-pine-deep text-emerald-300 border border-emerald-500/40 flex items-center gap-1.5 shadow-sm shrink-0 self-start sm:self-auto">
             <Cpu className="w-3.5 h-3.5 text-emerald-400" />
             <span>On-Device RAG</span>
           </span>
@@ -176,16 +176,16 @@ export const HeritageGuide: React.FC<HeritageGuideProps> = ({
       {/* AI Answer Card with Parchment Heritage Styling */}
       {response && (
         <div
-          className={`p-6 sm:p-8 rounded-3xl transition-all duration-300 ${
+          className={`p-4 sm:p-6 md:p-8 rounded-3xl transition-all duration-300 ${
             isSunlight
               ? 'card-sunlight'
               : 'glass-panel text-parchment'
           }`}
         >
           {/* Metadata bar */}
-          <div className="flex items-center justify-between border-b pb-4 border-inherit/20 text-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-4 border-inherit/20 text-xs">
             <div className="flex items-center gap-2">
-              <span className="font-bold text-amber-glow flex items-center gap-1.5 font-serif text-base">
+              <span className="font-bold text-amber-glow flex items-center gap-1.5 font-serif text-sm sm:text-base">
                 <BookOpen className="w-4 h-4 text-rail-gold" />
                 <span>{response.sourceTitle}</span>
               </span>

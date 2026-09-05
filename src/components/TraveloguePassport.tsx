@@ -138,19 +138,19 @@ export const TraveloguePassport: React.FC<TraveloguePassportProps> = ({
     <div className="space-y-6 pb-24">
       {/* Passport Heritage Stamp Collection */}
       <div
-        className={`p-6 sm:p-8 rounded-3xl transition-all duration-300 ${
+        className={`p-4 sm:p-6 md:p-8 rounded-3xl transition-all duration-300 ${
           isSunlight
             ? 'card-sunlight'
             : 'glass-panel text-parchment'
         }`}
       >
-        <div className="flex items-center justify-between border-b border-inherit/20 pb-4 mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-inherit/20 pb-4 mb-4">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-2xl bg-pine-deep/80 border border-rail-gold/40 flex items-center justify-center text-rail-gold shadow-sm">
               <Stamp className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-xl font-bold font-serif tracking-tight text-inherit">
+              <h2 className="text-lg sm:text-xl font-bold font-serif tracking-tight text-inherit">
                 DHR Railway Travelogue & Passport
               </h2>
               <p className="text-xs text-himalaya-mist font-medium">
@@ -158,19 +158,19 @@ export const TraveloguePassport: React.FC<TraveloguePassportProps> = ({
               </p>
             </div>
           </div>
-          <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-pine-deep text-amber-300 border border-rail-gold/40 shadow-sm">
+          <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-pine-deep text-amber-300 border border-rail-gold/40 shadow-sm shrink-0 self-start sm:self-auto">
             {currentStationIndex + 1} / 14 Stations
           </span>
         </div>
 
         {/* Stamps Responsive Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3 max-h-80 overflow-y-auto pr-1">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-2 sm:gap-3 max-h-80 overflow-y-auto pr-1">
           {DHR_STATIONS.map((st, idx) => {
             const isStamped = idx <= currentStationIndex;
             return (
               <div
                 key={st.id}
-                className={`p-3.5 rounded-2xl border text-center transition-all duration-200 relative overflow-hidden flex flex-col justify-between ${
+                className={`p-2.5 sm:p-3.5 rounded-2xl border text-center transition-all duration-200 relative overflow-hidden flex flex-col justify-between ${
                   isStamped
                     ? isSunlight
                       ? 'bg-neutral-100 border-2 border-black shadow-sm'
@@ -200,7 +200,7 @@ export const TraveloguePassport: React.FC<TraveloguePassportProps> = ({
 
       {/* Rough Notes Logger */}
       <div
-        className={`p-6 sm:p-8 rounded-3xl transition-all duration-300 ${
+        className={`p-4 sm:p-6 md:p-8 rounded-3xl transition-all duration-300 ${
           isSunlight
             ? 'card-sunlight'
             : 'glass-panel text-parchment'
@@ -286,7 +286,7 @@ export const TraveloguePassport: React.FC<TraveloguePassportProps> = ({
       {/* Generated Travelogue Story Card */}
       {generatedStory && (
         <div
-          className={`p-6 sm:p-8 rounded-3xl transition-all duration-300 ${
+          className={`p-4 sm:p-6 md:p-8 rounded-3xl transition-all duration-300 ${
             isSunlight
               ? 'card-sunlight'
               : 'glass-panel text-parchment'

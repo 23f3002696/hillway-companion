@@ -10,7 +10,7 @@ export const AboutDHR: React.FC<AboutDHRProps> = ({ isSunlight }) => {
     <div className="space-y-6 pb-24">
       {/* UNESCO Heritage Hero Card */}
       <div
-        className={`p-6 sm:p-8 rounded-3xl transition-all duration-300 ${
+        className={`p-4 sm:p-6 md:p-8 rounded-3xl transition-all duration-300 ${
           isSunlight
             ? 'card-sunlight'
             : 'glass-panel text-parchment'
@@ -21,7 +21,7 @@ export const AboutDHR: React.FC<AboutDHRProps> = ({ isSunlight }) => {
           <span>UNESCO World Heritage Site (Inscribed 1999)</span>
         </div>
 
-        <h2 className="text-2xl sm:text-4xl font-bold mt-2 text-inherit tracking-tight font-serif">
+        <h2 className="text-xl sm:text-2xl md:text-4xl font-bold mt-2 text-inherit tracking-tight font-serif">
           Darjeeling Himalayan Railway
         </h2>
         <p className="text-xs sm:text-sm text-himalaya-mist mt-1 font-mono">
@@ -38,7 +38,7 @@ export const AboutDHR: React.FC<AboutDHRProps> = ({ isSunlight }) => {
 
       {/* The 4 Engineering Feats */}
       <div
-        className={`p-6 sm:p-8 rounded-3xl transition-all duration-300 ${
+        className={`p-4 sm:p-6 md:p-8 rounded-3xl transition-all duration-300 ${
           isSunlight
             ? 'card-sunlight'
             : 'glass-panel text-parchment'
@@ -100,7 +100,7 @@ export const AboutDHR: React.FC<AboutDHRProps> = ({ isSunlight }) => {
 
       {/* Practical Zero-Signal Tips */}
       <div
-        className={`p-6 sm:p-8 rounded-3xl transition-all duration-300 ${
+        className={`p-4 sm:p-6 md:p-8 rounded-3xl transition-all duration-300 ${
           isSunlight
             ? 'card-sunlight'
             : 'glass-panel text-parchment'
@@ -133,13 +133,13 @@ export const AboutDHR: React.FC<AboutDHRProps> = ({ isSunlight }) => {
 
       {/* Hackathon Specs & Offline AI Attribution */}
       <div
-        className={`p-6 rounded-3xl border transition-all text-xs ${
+        className={`p-4 sm:p-6 rounded-3xl border transition-all text-xs ${
           isSunlight
             ? 'bg-neutral-100 border-neutral-300 text-black'
             : 'bg-surface-container/60 border-rail-gold/25 text-himalaya-mist'
         }`}
       >
-        <div className="flex items-center justify-between font-mono text-xs text-himalaya-mist mb-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-mono text-xs text-himalaya-mist mb-2">
           <span className="font-bold text-parchment font-serif text-sm">GDG Siliguri · Code for Communities</span>
           <span className="text-emerald-400 font-bold px-2 py-0.5 rounded bg-pine-deep/80 border border-emerald-500/30">100% Client-Side PWA</span>
         </div>

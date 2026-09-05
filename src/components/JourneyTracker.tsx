@@ -89,20 +89,20 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
     <div className="space-y-6 pb-24">
       {/* Top Altitude & Route HUD with Stitch Glassmorphism */}
       <div
-        className={`p-5 sm:p-7 rounded-3xl transition-all duration-300 ${
+        className={`p-4 sm:p-5 md:p-7 rounded-3xl transition-all duration-300 ${
           isSunlight
             ? 'card-sunlight'
             : 'glass-panel text-parchment'
         }`}
       >
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b pb-4 mb-4 border-inherit/25">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b pb-4 mb-4 border-inherit/25">
           <div>
             <div className="flex items-center gap-1.5 text-xs uppercase tracking-widest text-himalaya-mist font-semibold">
               <TrendingUp className="w-3.5 h-3.5 text-amber-glow" />
               <span>Current Mountain Elevation</span>
             </div>
             <div className="flex items-baseline gap-2 mt-1">
-              <span className="text-3xl sm:text-5xl font-extrabold tracking-tight text-amber-glow font-mono text-glow">
+              <span className="text-2xl sm:text-3xl md:text-5xl font-extrabold tracking-tight text-amber-glow font-mono text-glow">
                 {currentStation.elevationM.toLocaleString()}
               </span>
               <span className="text-sm font-semibold text-himalaya-mist">m</span>
@@ -112,15 +112,15 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
             </div>
           </div>
 
-          <div className="text-right">
-            <div className="flex items-center justify-end gap-2">
+          <div className="sm:text-right">
+            <div className="flex items-center sm:justify-end gap-2">
               <div className="w-2 h-2 rounded-full bg-amber-400 glowing-indicator" />
               <span className="text-xs uppercase tracking-widest text-himalaya-mist font-semibold font-mono">
                 {isPlaying ? "En Route · Steam Chuffing" : "Station Halt"}
               </span>
             </div>
-            <div className="flex items-baseline justify-end gap-1.5 mt-1">
-              <span className="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono">
+            <div className="flex items-baseline sm:justify-end gap-1.5 mt-1 flex-wrap">
+              <span className="text-xl sm:text-2xl md:text-3xl font-extrabold text-emerald-400 font-mono">
                 {currentStation.distanceKm}
               </span>
               <span className="text-xs text-himalaya-mist font-mono">/ 88 km</span>
@@ -133,7 +133,7 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
 
         {/* Elevation Profile Visual SVG Graph */}
         <div className="relative pt-2">
-          <div className="flex justify-between text-[11px] text-himalaya-mist font-mono mb-2">
+          <div className="flex justify-between text-[10px] sm:text-[11px] text-himalaya-mist font-mono mb-2">
             <span>Siliguri (100m)</span>
             <span className="font-bold text-amber-glow flex items-center gap-1">
               <Flame className="w-3.5 h-3.5 text-red-400 inline" />
@@ -142,7 +142,7 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
             <span>Darjeeling (2,073m)</span>
           </div>
 
-          <div className="h-24 sm:h-28 w-full relative flex items-end">
+          <div className="h-20 sm:h-24 md:h-28 w-full relative flex items-end">
             <svg className="w-full h-full overflow-visible" viewBox="0 0 100 40" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="stitchElevationGrad" x1="0" y1="0" x2="0" y2="1">
@@ -191,11 +191,11 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
         </div>
 
         {/* Simulation Ride Scrubber Controls */}
-        <div className="mt-6 pt-4 border-t border-inherit/25 flex items-center justify-between gap-3">
+        <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-inherit/25 flex items-center justify-between gap-2 sm:gap-3">
           <button
             onClick={() => onSelectStation(Math.max(0, currentStationIndex - 1))}
             disabled={currentStationIndex === 0}
-            className="px-3.5 py-2 rounded-xl border border-inherit disabled:opacity-30 hover:bg-white/5 text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
+            className="px-2.5 sm:px-3.5 py-2 rounded-xl border border-inherit disabled:opacity-30 hover:bg-white/5 text-xs font-semibold flex items-center gap-1 sm:gap-1.5 transition-all shadow-sm"
             title="Previous Station"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -204,7 +204,7 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
 
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-md active:scale-95 ${
+            className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-md active:scale-95 ${
               isSunlight
                 ? 'bg-black text-white hover:bg-neutral-800'
                 : 'bg-gradient-to-r from-rail-gold to-amber-glow text-black hover:brightness-110 shadow-glow-amber'
@@ -213,12 +213,14 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
             {isPlaying ? (
               <>
                 <Pause className="w-4 h-4 fill-current" />
-                <span>Pause Ride Simulation</span>
+                <span className="hidden sm:inline">Pause Ride Simulation</span>
+                <span className="sm:hidden">Pause</span>
               </>
             ) : (
               <>
                 <Play className="w-4 h-4 fill-current" />
-                <span>Simulate 88 km Mountain Ride</span>
+                <span className="hidden sm:inline">Simulate 88 km Mountain Ride</span>
+                <span className="sm:hidden">Simulate Ride</span>
               </>
             )}
           </button>
@@ -226,7 +228,7 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
           <button
             onClick={() => onSelectStation(Math.min(DHR_STATIONS.length - 1, currentStationIndex + 1))}
             disabled={currentStationIndex === DHR_STATIONS.length - 1}
-            className="px-3.5 py-2 rounded-xl border border-inherit disabled:opacity-30 hover:bg-white/5 text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
+            className="px-2.5 sm:px-3.5 py-2 rounded-xl border border-inherit disabled:opacity-30 hover:bg-white/5 text-xs font-semibold flex items-center gap-1 sm:gap-1.5 transition-all shadow-sm"
             title="Next Station"
           >
             <span className="hidden sm:inline">Next Halt</span>
@@ -236,17 +238,17 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
       </div>
 
       {/* Stitch Dual Vintage Telemetry Gauges Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid grid-cols-2 gap-4 sm:gap-5">
         {/* Speedometer Gauge */}
         <div
-          className={`p-5 sm:p-6 rounded-3xl transition-all duration-300 flex flex-col items-center justify-between relative overflow-hidden ${
+          className={`p-4 sm:p-5 md:p-6 rounded-3xl transition-all duration-300 flex flex-col items-center justify-between relative overflow-hidden ${
             isSunlight ? 'card-sunlight' : 'glass-panel text-parchment'
           }`}
         >
           <div className="w-full flex items-center justify-between border-b border-inherit/20 pb-3 mb-2">
             <div className="flex items-center gap-2">
               <Gauge className="w-4 h-4 text-rail-gold" />
-              <span className="font-serif text-sm font-bold uppercase tracking-wider">Locomotive Speedometer</span>
+              <span className="font-serif text-xs sm:text-sm font-bold uppercase tracking-wider">Speedometer</span>
             </div>
             <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-pine-deep text-emerald-300 border border-emerald-600/30">
               {isPlaying ? 'CRUISING' : 'HALTED'}
@@ -254,7 +256,7 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
           </div>
 
           {/* Dial Graphic */}
-          <div className="relative w-44 h-44 my-3 flex items-center justify-center">
+          <div className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 my-2 sm:my-3 flex items-center justify-center">
             {/* Outer Brass Ring */}
             <div className="absolute inset-0 rounded-full border-4 border-pine-deep/80 shadow-[inset_0_4px_16px_rgba(0,0,0,0.7)] bg-[#0a150e]" />
             <div className="absolute inset-1.5 rounded-full border border-rail-gold/30" />
@@ -282,20 +284,20 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
 
             {/* Needle */}
             <div
-              className="absolute w-1 h-20 bg-gradient-to-t from-red-600 via-amber-400 to-amber-200 rounded-full transition-transform duration-700 ease-out origin-bottom z-10 glowing-indicator"
+              className="absolute w-0.5 sm:w-1 h-12 sm:h-16 md:h-20 bg-gradient-to-t from-red-600 via-amber-400 to-amber-200 rounded-full transition-transform duration-700 ease-out origin-bottom z-10 glowing-indicator"
               style={{
                 bottom: '50%',
                 transform: `rotate(${speedNeedleDeg}deg)`
               }}
             />
             {/* Center Pivot Cap */}
-            <div className="w-5 h-5 rounded-full bg-rail-gold border-2 border-black z-20 shadow-md flex items-center justify-center">
+            <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-rail-gold border-2 border-black z-20 shadow-md flex items-center justify-center">
               <div className="w-1.5 h-1.5 bg-black rounded-full" />
             </div>
 
             {/* Current speed readout */}
             <div className="absolute bottom-4 flex flex-col items-center">
-              <span className="text-2xl font-extrabold font-mono text-amber-glow text-glow">
+              <span className="text-lg sm:text-xl md:text-2xl font-extrabold font-mono text-amber-glow text-glow">
                 {currentSpeed}
               </span>
               <span className="text-[10px] font-mono uppercase text-himalaya-mist tracking-widest">
@@ -304,21 +306,22 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
             </div>
           </div>
 
-          <div className="w-full text-center text-xs text-himalaya-mist font-medium">
-            Standard 2ft Narrow Gauge Speed Limit: 16 km/h on Batasia loop curves
+          <div className="w-full text-center text-[10px] sm:text-xs text-himalaya-mist font-medium">
+            <span className="hidden sm:inline">Standard 2ft Narrow Gauge Speed Limit: 16 km/h on Batasia loop curves</span>
+            <span className="sm:hidden">2ft Gauge Limit: 16 km/h</span>
           </div>
         </div>
 
         {/* B-Class Steam Boiler Pressure Gauge */}
         <div
-          className={`p-5 sm:p-6 rounded-3xl transition-all duration-300 flex flex-col items-center justify-between relative overflow-hidden ${
+          className={`p-4 sm:p-5 md:p-6 rounded-3xl transition-all duration-300 flex flex-col items-center justify-between relative overflow-hidden ${
             isSunlight ? 'card-sunlight' : 'glass-panel text-parchment'
           }`}
         >
           <div className="w-full flex items-center justify-between border-b border-inherit/20 pb-3 mb-2">
             <div className="flex items-center gap-2">
               <Flame className="w-4 h-4 text-amber-500" />
-              <span className="font-serif text-sm font-bold uppercase tracking-wider">B-Class Boiler Steam</span>
+              <span className="font-serif text-xs sm:text-sm font-bold uppercase tracking-wider">Boiler Steam</span>
             </div>
             <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-950/80 text-amber-300 border border-amber-600/40">
               1881 SPEC
@@ -326,7 +329,7 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
           </div>
 
           {/* Dial Graphic */}
-          <div className="relative w-44 h-44 my-3 flex items-center justify-center">
+          <div className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 my-2 sm:my-3 flex items-center justify-center">
             {/* Outer Brass Ring */}
             <div className="absolute inset-0 rounded-full border-4 border-pine-deep/80 shadow-[inset_0_4px_16px_rgba(0,0,0,0.7)] bg-[#0a150e]" />
             <div className="absolute inset-1.5 rounded-full border border-rail-gold/30" />
@@ -366,20 +369,20 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
 
             {/* Needle */}
             <div
-              className="absolute w-1 h-20 bg-gradient-to-t from-red-600 via-amber-400 to-amber-200 rounded-full transition-transform duration-700 ease-out origin-bottom z-10 glowing-indicator"
+              className="absolute w-0.5 sm:w-1 h-12 sm:h-16 md:h-20 bg-gradient-to-t from-red-600 via-amber-400 to-amber-200 rounded-full transition-transform duration-700 ease-out origin-bottom z-10 glowing-indicator"
               style={{
                 bottom: '50%',
                 transform: `rotate(${pressureNeedleDeg}deg)`
               }}
             />
             {/* Center Pivot Cap */}
-            <div className="w-5 h-5 rounded-full bg-rail-gold border-2 border-black z-20 shadow-md flex items-center justify-center">
+            <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-rail-gold border-2 border-black z-20 shadow-md flex items-center justify-center">
               <div className="w-1.5 h-1.5 bg-black rounded-full" />
             </div>
 
             {/* Current pressure readout */}
             <div className="absolute bottom-4 flex flex-col items-center">
-              <span className="text-2xl font-extrabold font-mono text-amber-glow text-glow">
+              <span className="text-lg sm:text-xl md:text-2xl font-extrabold font-mono text-amber-glow text-glow">
                 {boilerPressure}
               </span>
               <span className="text-[10px] font-mono uppercase text-himalaya-mist tracking-widest">
@@ -388,8 +391,9 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
             </div>
           </div>
 
-          <div className="w-full text-center text-xs text-himalaya-mist font-medium">
-            B-Class Locomotive Working Boiler Pressure: 120 – 140 PSI (Coal & Water)
+          <div className="w-full text-center text-[10px] sm:text-xs text-himalaya-mist font-medium">
+            <span className="hidden sm:inline">B-Class Locomotive Working Boiler Pressure: 120 – 140 PSI (Coal & Water)</span>
+            <span className="sm:hidden">Boiler Pressure: 120–140 PSI</span>
           </div>
         </div>
       </div>
@@ -400,16 +404,16 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
           isSunlight ? 'card-sunlight' : 'glass-panel text-parchment'
         }`}
       >
-        <div className="grid grid-cols-1 md:grid-cols-12">
+        <div className="grid grid-cols-1 sm:grid-cols-12">
           {/* Scenic Heritage Visual from Stitch */}
-          <div className="md:col-span-5 h-64 md:h-auto relative bg-[#07130c] overflow-hidden">
+          <div className="sm:col-span-5 h-48 sm:h-64 md:h-auto relative bg-[#07130c] overflow-hidden">
             <div 
               className="w-full h-full bg-cover bg-center transition-transform duration-700 hover:scale-105"
               style={{
                 backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuCRzz0ANVI1Fx_lCTA2y6wasK4aV8hWiI1AJ_1uTulvXXKBdlmA5et5DYiOYwfUGtjB3CpZ5fY8ESs0NEF-WLM7An1x8k4ZW2fi-lIq5KWmomOxEoAIimmCo0CXda6jheMDsKHCcduDnGP2N4vSa9XTqwpQeYx8OBPzafCP7MCvK9RiP_PO7xl1kM6OaMfkKxqrRyHAJVMOiZngoOGKWjIEUSgJnnHpyh6J93fZQcsc1un9O7fSw3KlqyYZLKxrExrj9ZNYRw_OgJzE')`
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 via-black/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-black/80 via-black/30 to-transparent" />
             
             <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
               <span className="text-[10px] font-bold font-mono px-2.5 py-1 rounded-full bg-black/75 text-amber-300 border border-rail-gold/40 backdrop-blur-md">
@@ -422,7 +426,7 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
           </div>
 
           {/* Station Narrative & Audio Guide Trigger */}
-          <div className="md:col-span-7 p-6 sm:p-7 flex flex-col justify-between space-y-4">
+          <div className="sm:col-span-7 p-4 sm:p-6 md:p-7 flex flex-col justify-between space-y-3 sm:space-y-4">
             <div>
               <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                 <div className="flex items-center gap-2">
@@ -441,7 +445,7 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
                 </div>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl font-bold font-serif text-parchment tracking-tight">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold font-serif text-parchment tracking-tight">
                 {currentStation.name}
               </h2>
 
@@ -459,10 +463,10 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
               </p>
 
               {/* Telemetry Metrics Grid */}
-              <div className="grid grid-cols-2 gap-3 mt-4 pt-3 border-t border-inherit/20">
-                <div className="p-2.5 rounded-xl bg-black/30 border border-inherit/20">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3 mt-3 sm:mt-4 pt-3 border-t border-inherit/20">
+                <div className="p-2 sm:p-2.5 rounded-xl bg-black/30 border border-inherit/20">
                   <span className="block text-[10px] uppercase font-mono text-himalaya-mist">Next Stop</span>
-                  <span className="font-serif font-bold text-parchment text-sm">
+                  <span className="font-serif font-bold text-parchment text-xs sm:text-sm truncate block">
                     {nextStation ? nextStation.name : 'Terminal Point'}
                   </span>
                   <span className="text-[11px] font-mono text-amber-glow block">
@@ -470,7 +474,7 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
                   </span>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-black/30 border border-inherit/20">
+                <div className="p-2 sm:p-2.5 rounded-xl bg-black/30 border border-inherit/20">
                   <span className="block text-[10px] uppercase font-mono text-himalaya-mist">Peak Altitude</span>
                   <span className="font-mono font-bold text-emerald-400 text-sm">
                     {currentStation.elevationM} m
@@ -563,14 +567,14 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
 
       {/* Complete Station Alignment Grid with Ticket Stubs */}
       <div
-        className={`p-5 sm:p-7 rounded-3xl transition-all duration-300 ${
+        className={`p-4 sm:p-5 md:p-7 rounded-3xl transition-all duration-300 ${
           isSunlight ? 'card-sunlight' : 'glass-panel text-parchment'
         }`}
       >
         <div className="flex items-center justify-between mb-4 border-b border-inherit/20 pb-3">
           <div className="flex items-center gap-2">
             <Award className="w-4 h-4 text-rail-gold" />
-            <h3 className="font-serif text-sm font-bold uppercase tracking-wider">
+            <h3 className="font-serif text-xs sm:text-sm font-bold uppercase tracking-wider">
               88 km Station Alignment (14 Halts)
             </h3>
           </div>
@@ -622,8 +626,9 @@ export const JourneyTracker: React.FC<JourneyTrackerProps> = ({
                         </span>
                       )}
                     </div>
-                    <div className="text-[11px] text-himalaya-mist font-mono mt-0.5">
-                      {station.distanceKm} km • {station.elevationM}m ({station.nepaliName})
+                    <div className="text-[10px] sm:text-[11px] text-himalaya-mist font-mono mt-0.5 truncate">
+                      {station.distanceKm} km • {station.elevationM}m
+                      <span className="hidden sm:inline"> ({station.nepaliName})</span>
                     </div>
                   </div>
                 </div>

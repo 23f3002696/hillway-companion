@@ -62,12 +62,12 @@ export const App: React.FC = () => {
             : 'bg-[#08120c]/90 backdrop-blur-2xl border-b border-amber-600/20 shadow-[0_4px_30px_rgba(0,0,0,0.6)]'
         }`}
       >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3">
           <div className="flex items-center justify-between gap-3">
             {/* Logo & Brand Identity */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
               <div
-                className={`w-11 h-11 rounded-2xl flex items-center justify-center shadow-md transition-all duration-300 relative group ${
+                className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-md transition-all duration-300 relative group shrink-0 ${
                   isSunlight
                     ? 'bg-black text-white border-2 border-black'
                     : 'bg-gradient-to-br from-pine-deep via-[#0d2319] to-surface-container text-rail-gold border border-rail-gold/30 shadow-glow-amber/20'
@@ -79,19 +79,20 @@ export const App: React.FC = () => {
                 )}
               </div>
 
-              <div>
+              <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <h1 className="text-base sm:text-lg font-bold tracking-wide font-serif text-parchment uppercase">
+                  <h1 className="text-sm sm:text-base md:text-lg font-bold tracking-wide font-serif text-parchment uppercase truncate">
                     Hillway Companion
                   </h1>
-                  <span className="text-[10px] font-bold font-mono px-2 py-0.5 rounded-full bg-rail-gold/15 text-rail-gold border border-rail-gold/40 tracking-wider">
+                  <span className="text-[9px] sm:text-[10px] font-bold font-mono px-1.5 sm:px-2 py-0.5 rounded-full bg-rail-gold/15 text-rail-gold border border-rail-gold/40 tracking-wider shrink-0">
                     DHR 1881
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-xs text-himalaya-mist font-medium">
-                  <span className="text-emerald-400/90 font-medium">UNESCO World Heritage #944</span>
+                <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-himalaya-mist font-medium min-w-0">
+                  <span className="text-emerald-400/90 font-medium hidden xs:inline sm:inline">UNESCO #944</span>
+                  <span className="text-emerald-400/90 font-medium sm:hidden">UNESCO</span>
                   <span className="text-neutral-600">•</span>
-                  <span className="text-amber-glow font-mono text-[11px] font-semibold">
+                  <span className="text-amber-glow font-mono text-[10px] sm:text-[11px] font-semibold truncate">
                     {currentStation.name} ({currentStation.elevationM}m)
                   </span>
                 </div>
@@ -99,7 +100,7 @@ export const App: React.FC = () => {
             </div>
 
             {/* Right Header Controls */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
               {/* Steam Whistle Sound Trigger */}
               <button
                 onClick={handleBlowWhistle}
@@ -125,7 +126,7 @@ export const App: React.FC = () => {
           </div>
 
           {/* Sub-header: Proactive Offline Telemetry & Archive link */}
-          <div className="mt-2.5 pt-2 border-t border-inherit/25 flex items-center justify-between text-xs">
+          <div className="mt-2 sm:mt-2.5 pt-2 border-t border-inherit/25 flex items-center justify-between gap-2 text-xs">
             <OfflineStatusBadge isSunlight={isSunlight} />
             
             <button
@@ -143,7 +144,7 @@ export const App: React.FC = () => {
       </header>
 
       {/* Main Content Workspace */}
-      <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5">
+      <main className="flex-1 max-w-4xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-5">
         {showAbout ? (
           <AboutDHR isSunlight={isSunlight} />
         ) : (

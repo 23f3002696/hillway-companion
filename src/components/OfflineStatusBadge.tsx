@@ -64,8 +64,18 @@ export const OfflineStatusBadge: React.FC<{ isSunlight: boolean }> = ({ isSunlig
         ) : (
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
         )}
-        <span className="font-mono text-[11px] font-bold">
-          {!isOnline ? "Zero Bars (Airplane Mode)" : "100% Offline Ready"}
+        <span className="font-mono text-[10px] sm:text-[11px] font-bold">
+          {!isOnline ? (
+            <>
+              <span className="hidden sm:inline">Zero Bars (Airplane Mode)</span>
+              <span className="sm:hidden">Offline</span>
+            </>
+          ) : (
+            <>
+              <span className="hidden sm:inline">100% Offline Ready</span>
+              <span className="sm:hidden">Offline Ready</span>
+            </>
+          )}
         </span>
       </div>
 
