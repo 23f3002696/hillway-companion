@@ -1,7 +1,7 @@
 import React from 'react';
-import { Train, Sparkles, MessageSquareQuote, Compass, Camera, BookOpen } from 'lucide-react';
+import { Train, Sparkles, MessageSquareQuote, Compass, BookOpen } from 'lucide-react';
 
-export type TabType = 'journey' | 'heritage' | 'scanner' | 'phrasebook' | 'compass' | 'passport';
+export type TabType = 'journey' | 'heritage' | 'phrasebook' | 'compass' | 'passport';
 
 interface NavigationProps {
   activeTab: TabType;
@@ -13,7 +13,6 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, 
   const navItems: { id: TabType; label: string; icon: React.FC<{ className?: string }> }[] = [
     { id: 'journey', label: 'Journey', icon: Train },
     { id: 'heritage', label: 'AI Guide', icon: Sparkles },
-    { id: 'scanner', label: 'Scanner', icon: Camera },
     { id: 'phrasebook', label: 'Phrases', icon: MessageSquareQuote },
     { id: 'compass', label: 'Peaks', icon: Compass },
     { id: 'passport', label: 'Passport', icon: BookOpen },

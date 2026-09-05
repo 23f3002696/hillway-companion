@@ -13,7 +13,7 @@
 | **Problem Statement** | **Track A: The Journey** (A1 Heritage Companion + A2 Zero-Bars Phrasebook + A3 Point-and-Know + B2 Peak Compass) |
 | **On-Device AI Architecture** | **Multi-Tier On-Device AI**: <br>• **Tier 1**: Chrome Built-in Prompt API (`window.ai.languageModel` - Gemini Nano in-browser) <br>• **Tier 2**: In-Browser Vector & BM25 Local RAG Engine (< 15ms latency, 0 server calls) <br>• **Tier 3**: Verified DHR & UNESCO Curated Historical Knowledge Base <br>• **Tier 4**: Client-side Computer Vision Heuristic Classifier (Canvas 2D pixel sampling) |
 | **Minimum Device Tested** | Low-end Android handset (4 GB RAM, Quad-Core 1.8GHz, Android 10+ on Chrome/Edge), and iPhone (iOS 15+ Safari), MacBook / PC webcams. No GPU required. |
-| **Fallback Behavior** | If Chrome Prompt API is unavailable, the app seamlessly runs pure client-side BM25 vector search over pre-indexed DHR records with zero latency penalty. Web Speech API falls back to regional Devanagari/Hindi TTS when native Nepali TTS is not pre-installed. Camera scanner automatically adapts from WebRTC rear/front streams to desktop webcams, native OS camera capture (`capture="environment"`), and simulated carriage window views. |
+| **Fallback Behavior** | If Chrome Prompt API is unavailable, the app seamlessly runs pure client-side BM25 vector search over pre-indexed DHR records with zero latency penalty. Web Speech API falls back to regional Devanagari/Hindi TTS when native Nepali TTS is not pre-installed. Camera scanner provides live camera viewfinder capture ("Capture Photo") and offline gallery upload ("Upload Photo") with automatic stream constraints across mobile and desktop webcams. |
 | **Offline Verification** | 100% functional in Airplane Mode. Full Service Worker precache (`vite-plugin-pwa` with Workbox). Zero outbound network requests after initial load. |
 | **Bundle Size** | **75.44 KB gzipped** core JS (`index-BQguxIjT.js`) + **5.26 KB gzipped** CSS. Instant load even on 2G at Siliguri Junction. |
 
@@ -69,11 +69,10 @@ Passengers face severe real-world frictions during this 6–8 hour journey:
 - Automatic alignment detector triggers when the user's phone points directly at a sacred summit.
 
 ### 5. 📷 Point-and-Know Offline Camera Scanner (Track A3)
-- **Live Viewfinder & Multi-Tier Stream Engine**: Real-time in-browser camera feed using WebRTC `navigator.mediaDevices.getUserMedia` with adaptive fallback:
-  - **Desktop / Laptop Webcams**: Robust support for MacBook FaceTime HD cameras and external PC webcams with automatic constraint resolution.
-  - **Mobile Dual Cameras**: One-tap camera flip button between Rear (`environment`) and Front (`user`) cameras.
-  - **Simulated Carriage Window View**: Interactive virtual camera view with animated reticles, enabling judges and developers to test the vision AI on devices without physical webcams or restricted permissions.
-  - **Native Camera Shutter Fallback**: Direct `<input type="file" accept="image/*" capture="environment">` integration that triggers the mobile operating system's native camera even in airplane mode.
+- **Streamlined Offline Image Acquisition**:
+  - **"Capture Photo"**: Opens the live camera feed with multi-tier hardware adaptation (rear/front mobile camera and desktop webcams) and a tactile shutter button to capture frames directly into the on-device vision pipeline.
+  - **"Upload Photo"**: Lets passengers select and upload pictures directly from their camera roll, photo library, or saved snapshots with zero permission friction.
+  - **Viewfinder HUD**: Retains classic brass corner crosshairs, scanning indicator, shutter flash feedback, and Web Audio shutter click sound (`soundService.playTrackClack()`).
 - **On-Device Computer Vision Classifier**: Instant (< 1ms) color temperature, RGB distribution, and luminance classification across 6 curated DHR targets:
   - 🍃 **Darjeeling Tea Bush (`Camellia sinensis`)**: Chlorophyll green spectrum detection with contour terracing lore.
   - 🚂 **B-Class Steam Engine (`0-4-0ST`)**: Coal-fired soot and boiler silhouette classification.
@@ -154,11 +153,6 @@ npm run preview
    - Ask any question in the **AI Guide** tab (e.g. *"Why is the track gauge 2 feet?"*) $\rightarrow$ receives instant grounded answer with zero network calls.
    - Tap any phrase in the **Phrasebook** $\rightarrow$ audio speaks aloud using client-side speech synthesis.
    - Advance through the **Journey** tab $\rightarrow$ elevation profiles and station stories update immediately.
-5. Test the **Point & Know Scanner** (Track A3):
-   - Switch to the **Scanner** tab.
-   - Tap **Open Camera** to view the live camera feed (or tap **Simulate View** to test the HUD without a physical camera).
-   - Tap the circular **Shutter Button** at the bottom of the viewfinder.
-   - Experience the shutter flash, sound feedback, and instant on-device classification match with audio narration.
 
 ---
 

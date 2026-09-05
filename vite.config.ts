@@ -39,7 +39,7 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,json,woff2}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,json,woff2,wasm,tflite}'],
         runtimeCaching: [
           {
             urlPattern: ({ request }) => request.destination === 'document' || request.destination === 'script' || request.destination === 'style' || request.destination === 'image',
@@ -49,6 +49,20 @@ export default defineConfig({
               expiration: {
                 maxEntries: 100,
                 maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+              }
+            }
+          },
+          {
+            urlPattern: ({ url }) => url.pathname.endsWith('.wasm') || url.pathname.endsWith('.tflite') || url.hostname.includes('cdn.jsdelivr.net') || url.hostname.includes('storage.googleapis.com'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'hillway-vision-models',
+              expiration: {
+                maxEntries: 20,
+                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
               }
             }
           }

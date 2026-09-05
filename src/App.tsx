@@ -4,7 +4,7 @@ import { JourneyTracker } from './components/JourneyTracker';
 import { HeritageGuide } from './components/HeritageGuide';
 import { Phrasebook } from './components/Phrasebook';
 import { PeakCompass } from './components/PeakCompass';
-import { CameraScanner } from './components/CameraScanner';
+
 import { TraveloguePassport } from './components/TraveloguePassport';
 import { AboutDHR } from './components/AboutDHR';
 import { OfflineStatusBadge } from './components/OfflineStatusBadge';
@@ -166,12 +166,7 @@ export const App: React.FC = () => {
               />
             )}
 
-            {activeTab === 'scanner' && (
-              <CameraScanner
-                isSunlight={isSunlight}
-                onAskAI={handleAskAI}
-              />
-            )}
+
 
             {activeTab === 'phrasebook' && (
               <Phrasebook isSunlight={isSunlight} />
