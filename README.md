@@ -4,6 +4,8 @@
 > *Track A1: Offline Heritage Companion for the DHR + Track A2: Zero-Bars Phrasebook + Track A3: Point-and-Know + Track B2: Know Your Hills*  
 > 🟢 100% Offline-Ready PWA · 📱 75 KB Gzip Bundle · 🏔️ Works in Airplane Mode on Cheap Phones
 
+**🌐 Live Demo: [hillway-companion.vercel.app](https://hillway-companion.vercel.app)**
+
 ---
 
 ## 📌 Submission Disclosure & Technical Specification
@@ -145,7 +147,7 @@ npm run preview
 
 ### ✈️ Airplane Mode Test Protocol
 
-1. Open `http://localhost:5173/` (or the deployed production URL).
+1. Open [`https://hillway-companion.vercel.app`](https://hillway-companion.vercel.app) (or `http://localhost:5173/` locally).
 2. Allow the page to load once (the Service Worker will automatically cache the 75 KB bundle and static assets).
 3. Open Developer Tools $\rightarrow$ **Network** $\rightarrow$ select **Offline** (or enable Airplane Mode on your phone).
 4. Refresh the page:
