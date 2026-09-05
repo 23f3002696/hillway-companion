@@ -21,46 +21,51 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, 
 
   return (
     <nav
-      className={`fixed bottom-0 left-0 right-0 z-50 pb-safe transition-colors ${
-        isSunlight
-          ? 'bg-white border-t-2 border-black'
-          : 'bg-[#0e1813]/95 backdrop-blur-md border-t border-himalaya-border'
-      }`}
+      className="fixed bottom-0 inset-x-0 z-50 pointer-events-none pb-safe px-3 sm:px-6 mb-2 sm:mb-3"
+      aria-label="Main Navigation"
     >
-      <div className="max-w-md mx-auto px-2 py-1 flex items-center justify-between">
-        {navItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = activeTab === item.id;
+      <div
+        className={`max-w-2xl mx-auto rounded-2xl p-1.5 pointer-events-auto transition-all duration-300 ${
+          isSunlight
+            ? 'bg-white border-2 border-black shadow-[4px_4px_0px_#000]'
+            : 'bg-[#0d1e15]/90 backdrop-blur-2xl border border-rail-gold/30 shadow-[0_12px_40px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(217,119,6,0.25)]'
+        }`}
+      >
+        <div className="flex items-center justify-between gap-1">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = activeTab === item.id;
 
-          return (
-            <button
-              key={item.id}
-              onClick={() => onTabChange(item.id)}
-              className={`flex-1 flex flex-col items-center py-1 px-0.5 rounded-xl transition-all ${
-                isSunlight
-                  ? isActive
-                    ? 'text-black font-extrabold scale-105'
-                    : 'text-neutral-500 font-medium hover:text-black'
-                  : isActive
-                    ? 'text-himalaya-amber font-semibold scale-105'
-                    : 'text-himalaya-mist hover:text-himalaya-snow'
-              }`}
-            >
-              <div
-                className={`p-1 rounded-lg transition-all ${
-                  isActive
-                    ? isSunlight
-                      ? 'bg-neutral-200'
-                      : 'bg-himalaya-forest/50'
-                    : ''
+            return (
+              <button
+                key={item.id}
+                onClick={() => onTabChange(item.id)}
+                className={`relative flex-1 flex flex-col items-center justify-center py-2 px-1 rounded-xl transition-all duration-200 group ${
+                  isSunlight
+                    ? isActive
+                      ? 'bg-black text-white font-extrabold shadow'
+                      : 'text-neutral-700 hover:bg-neutral-100 font-medium'
+                    : isActive
+                      ? 'bg-gradient-to-b from-pine-deep/80 via-[#0d2319] to-surface-container text-amber-glow border border-rail-gold/45 shadow-sm'
+                      : 'text-himalaya-mist hover:text-parchment hover:bg-white/5'
                 }`}
               >
-                <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${isActive && !isSunlight ? 'text-himalaya-amber' : ''}`} />
-              </div>
-              <span className="text-[10px] mt-0.5 tracking-tight">{item.label}</span>
-            </button>
-          );
-        })}
+                {/* Active Indicator Top Dot (Non-sunlight) */}
+                {isActive && !isSunlight && (
+                  <span className="absolute -top-1 w-1.5 h-1.5 rounded-full bg-amber-glow glowing-indicator" />
+                )}
+
+                <div className={`transition-transform duration-200 ${isActive ? 'scale-110' : 'group-hover:scale-105'}`}>
+                  <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${isActive ? (isSunlight ? 'text-white' : 'text-amber-glow') : 'text-inherit'}`} />
+                </div>
+                
+                <span className={`text-[10px] sm:text-[11px] mt-1 tracking-tight font-sans ${isActive ? 'font-bold' : 'font-medium'}`}>
+                  {item.label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
       </div>
     </nav>
   );

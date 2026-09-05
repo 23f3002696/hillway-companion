@@ -10,20 +10,22 @@ export const SunlightToggle: React.FC<SunlightToggleProps> = ({ isSunlight, onTo
   return (
     <button
       onClick={onToggle}
-      className={`p-2 rounded-xl transition-all flex items-center justify-center ${
+      className={`px-2.5 py-2 rounded-xl transition-all duration-200 flex items-center gap-1.5 text-xs font-bold shadow-sm active:scale-95 ${
         isSunlight
-          ? 'bg-black text-white hover:bg-neutral-800'
-          : 'bg-himalaya-card/80 hover:bg-himalaya-card text-himalaya-amber border border-himalaya-border'
+          ? 'bg-black text-white hover:bg-neutral-800 border-2 border-black'
+          : 'bg-himalaya-card/90 hover:bg-himalaya-forest/40 text-himalaya-amber border border-himalaya-border hover:border-amber-500/50'
       }`}
-      aria-label={isSunlight ? "Switch to Normal Himalayan Theme" : "Switch to Harsh Sunlight High-Contrast Mode"}
-      title={isSunlight ? "Sunlight Mode Active (Click for Normal Mode)" : "Turn on High-Contrast Sunlight Mode"}
+      aria-label={isSunlight ? "Switch to Alpine Dark Mode" : "Switch to Sunlight High-Contrast Mode"}
+      title={isSunlight ? "Sunlight Mode Active (Tap for Alpine Dark Mode)" : "Switch to High-Contrast Sunlight Mode for Mountain Glare"}
     >
       {isSunlight ? (
-        <Moon className="w-4 h-4" />
+        <Moon className="w-3.5 h-3.5 text-white" />
       ) : (
-        <Sun className="w-4 h-4 text-amber-400" />
+        <Sun className="w-3.5 h-3.5 text-amber-400" />
       )}
+      <span className="hidden sm:inline">
+        {isSunlight ? "Dark Mode" : "Sunlight"}
+      </span>
     </button>
   );
 };
-

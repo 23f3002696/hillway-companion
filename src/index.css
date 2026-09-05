@@ -4,34 +4,40 @@
 
 @layer base {
   :root {
-    --bg-color: #0e1813;
-    --card-color: #16251e;
-    --border-color: #243b30;
-    --text-primary: #f2f7f4;
-    --text-secondary: #9cb3a6;
-    --accent: #e5a93c;
-    --accent-terracotta: #d4653a;
+    --bg-color: #070e0a;
+    --card-color: #13251c;
+    --border-color: #1e3b2c;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a399;
+    --accent: #f5b942;
+    --accent-terracotta: #e06d44;
   }
 
   body {
     background-color: var(--bg-color);
+    background-image: 
+      radial-gradient(ellipse 80% 50% at 50% -15%, rgba(31, 72, 50, 0.4), transparent),
+      radial-gradient(ellipse 60% 40% at 90% 70%, rgba(245, 185, 66, 0.05), transparent),
+      radial-gradient(ellipse 50% 30% at 10% 40%, rgba(16, 185, 129, 0.06), transparent);
+    background-attachment: fixed;
     color: var(--text-primary);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-tap-highlight-color: transparent;
-    user-select: none;
+    min-height: 100vh;
     overflow-x: hidden;
   }
 
   /* Sunlight High-Contrast Mode for harsh outdoor mountain glare */
   body.sunlight-mode {
     --bg-color: #ffffff;
-    --card-color: #f7f7f8;
+    --card-color: #ffffff;
     --border-color: #000000;
     --text-primary: #000000;
-    --text-secondary: #222222;
+    --text-secondary: #171717;
     --accent: #b91c1c;
     --accent-terracotta: #991b1b;
     background-color: #ffffff !important;
+    background-image: none !important;
     color: #000000 !important;
   }
 
@@ -53,9 +59,74 @@
   }
 
   body.sunlight-mode .text-muted-sunlight {
-    color: #222222 !important;
+    color: #171717 !important;
     font-weight: 600 !important;
   }
+}
+
+/* Stitch Glassmorphism & Elevation Utility Classes */
+.glass-panel {
+  background: rgba(13, 25, 19, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(217, 119, 6, 0.22);
+  box-shadow: 0 14px 40px -10px rgba(0, 0, 0, 0.65), inset 0 1px 0 0 rgba(217, 119, 6, 0.2);
+}
+
+.glass-panel-pine {
+  background: rgba(6, 78, 59, 0.16);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(217, 119, 6, 0.25);
+  box-shadow: 0 14px 40px -10px rgba(0, 0, 0, 0.7);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-panel-hover:hover {
+  border-color: rgba(245, 158, 11, 0.55);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 45px -10px rgba(0, 0, 0, 0.75), 0 0 24px -4px rgba(245, 158, 11, 0.25);
+}
+
+/* Luminous glowing indicators */
+.glowing-indicator {
+  box-shadow: 0 0 12px 2px rgba(245, 158, 11, 0.55);
+}
+
+.glowing-indicator-emerald {
+  box-shadow: 0 0 14px 2px rgba(16, 185, 129, 0.55);
+}
+
+.text-glow {
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.65);
+}
+
+.text-glow-parchment {
+  text-shadow: 0 0 10px rgba(253, 251, 247, 0.35);
+}
+
+/* Rail divider with antique diamond glyph */
+.rail-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  color: rgba(217, 119, 6, 0.6);
+  font-size: 0.75rem;
+}
+.rail-divider::before,
+.rail-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid rgba(217, 119, 6, 0.25);
+}
+
+/* Vintage Gauge Needle Animation */
+.gauge-needle {
+  transform-origin: 50% 100%;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* Custom mountain elevation gradient line */
@@ -72,7 +143,7 @@
 
 /* Smooth transitions */
 .tab-transition {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Safe area insets for notched phones */
@@ -82,5 +153,33 @@
 
 .pt-safe {
   padding-top: env(safe-area-inset-top, 16px);
+}
+
+/* Custom discreet scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(7, 14, 10, 0.6);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(46, 91, 68, 0.5);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 185, 66, 0.6);
+}
+
+/* Hide scrollbar for clean carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 

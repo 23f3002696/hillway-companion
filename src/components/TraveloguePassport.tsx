@@ -3,13 +3,13 @@ import { DHR_STATIONS } from '../data/dhrStations';
 import { 
   BookOpen, 
   PenTool, 
-  Share2, 
   Check, 
   Sparkles, 
   CheckCircle2, 
   MapPin, 
   Trash2, 
-  Stamp 
+  Stamp,
+  Copy
 } from 'lucide-react';
 
 interface TraveloguePassportProps {
@@ -29,7 +29,7 @@ export const TraveloguePassport: React.FC<TraveloguePassportProps> = ({
   currentStationIndex,
   isSunlight
 }) => {
-  const currentStation = DHR_STATIONS[currentStationIndex];
+  const currentStation = DHR_STATIONS[currentStationIndex] || DHR_STATIONS[0];
   const [notes, setNotes] = useState<NoteItem[]>(() => {
     try {
       const saved = localStorage.getItem('hillway_travelogue_notes');
@@ -59,7 +59,6 @@ export const TraveloguePassport: React.FC<TraveloguePassportProps> = ({
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const [isSharing, setIsSharing] = useState<boolean>(false);
 
-  // Save notes to localStorage
   useEffect(() => {
     try {
       localStorage.setItem('hillway_travelogue_notes', JSON.stringify(notes));
@@ -73,7 +72,7 @@ export const TraveloguePassport: React.FC<TraveloguePassportProps> = ({
     if (!newNote.trim()) return;
 
     const noteItem: NoteItem = {
-      id: Date.now().toString(),
+      id: `note-${Date.now()}`,
       stationId: currentStation.id,
       stationName: `${currentStation.name} (${currentStation.elevationM}m)`,
       text: newNote.trim(),
@@ -88,27 +87,26 @@ export const TraveloguePassport: React.FC<TraveloguePassportProps> = ({
     setNotes(notes.filter(n => n.id !== id));
   };
 
-  // On-Device Travelogue Synthesizer (Stitches notes, elevation, and stations into a narrative)
   const handleGenerateStory = () => {
     const visitedCount = currentStationIndex + 1;
     const peakAltitude = Math.max(...DHR_STATIONS.slice(0, visitedCount).map(s => s.elevationM));
 
     let story = `🚂 My 88 km Himalayan Journey on the UNESCO Darjeeling Toy Train!\n\n`;
-    story += `Traversed ${visitedCount} stations from the plains to ${peakAltitude}m altitude at the summit.\n\n`;
-    story += `🌟 Journey Highlights:\n`;
+    story += `Traversed ${visitedCount} of 14 stations from the Bengal plains to ${peakAltitude}m altitude at the Himalayan summit.\n\n`;
+    story += `🌟 Real-Time Journey Highlights:\n`;
 
     if (notes.length > 0) {
       notes.forEach((n) => {
         story += `• At ${n.stationName}: "${n.text}"\n`;
       });
     } else {
-      story += `• Climbed 2,158 vertical meters through tea slopes and pine ridges.\n`;
-      story += `• Completed the famous Batasia Loop 360-degree spiral with Mt. Kanchenjunga on the horizon.\n`;
+      story += `• Climbed 2,158 vertical meters through terraced tea slopes and cloud pine ridges.\n`;
+      story += `• Completed the famous Batasia Loop 360-degree spiral with Mt. Kanchenjunga on the northern horizon.\n`;
       story += `• Experienced the iconic B-class steam whistle echoing through mountain valleys.\n`;
     }
 
     story += `\n📍 Current Station: ${currentStation.name} (${currentStation.elevationM} m / ${currentStation.elevationFt} ft)\n`;
-    story += `🏔️ Recorded 100% offline via Hillway Companion PWA #DHR #ToyTrain #DarjeelingHimalayanRailway`;
+    story += `🏔️ Logged 100% offline via Hillway Companion #DHR #ToyTrain #UNESCO`;
 
     setGeneratedStory(story);
   };
@@ -137,59 +135,61 @@ export const TraveloguePassport: React.FC<TraveloguePassportProps> = ({
   };
 
   return (
-    <div className="space-y-4 pb-20">
+    <div className="space-y-6 pb-24">
       {/* Passport Heritage Stamp Collection */}
       <div
-        className={`p-4 rounded-2xl transition-all ${
+        className={`p-6 sm:p-8 rounded-3xl transition-all duration-300 ${
           isSunlight
             ? 'card-sunlight'
-            : 'bg-himalaya-card border border-himalaya-border'
+            : 'glass-panel text-parchment'
         }`}
       >
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-himalaya-forest/60 text-himalaya-amber">
+        <div className="flex items-center justify-between border-b border-inherit/20 pb-4 mb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-2xl bg-pine-deep/80 border border-rail-gold/40 flex items-center justify-center text-rail-gold shadow-sm">
               <Stamp className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-inherit">DHR Heritage Passport</h2>
-              <p className="text-xs text-himalaya-mist">
-                Collect official station stamps along the 88 km route
+              <h2 className="text-xl font-bold font-serif tracking-tight text-inherit">
+                DHR Railway Travelogue & Passport
+              </h2>
+              <p className="text-xs text-himalaya-mist font-medium">
+                Collect official postal cancellation stamps across 14 mountain stations
               </p>
             </div>
           </div>
-          <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-himalaya-terracotta text-white">
-            {currentStationIndex + 1} / 14 Stamps
+          <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-pine-deep text-amber-300 border border-rail-gold/40 shadow-sm">
+            {currentStationIndex + 1} / 14 Stations
           </span>
         </div>
 
-        {/* Stamps Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 max-h-60 overflow-y-auto pr-1">
+        {/* Stamps Responsive Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3 max-h-80 overflow-y-auto pr-1">
           {DHR_STATIONS.map((st, idx) => {
             const isStamped = idx <= currentStationIndex;
             return (
               <div
                 key={st.id}
-                className={`p-2.5 rounded-xl border text-center transition-all relative overflow-hidden ${
+                className={`p-3.5 rounded-2xl border text-center transition-all duration-200 relative overflow-hidden flex flex-col justify-between ${
                   isStamped
                     ? isSunlight
-                      ? 'bg-neutral-100 border-2 border-black'
-                      : 'bg-himalaya-forest/40 border-amber-500/60 shadow-sm'
-                    : 'opacity-40 border-dashed border-inherit'
+                      ? 'bg-neutral-100 border-2 border-black shadow-sm'
+                      : 'bg-gradient-to-b from-pine-deep/60 via-[#0e2118] to-surface-container border-rail-gold/60 shadow-glow-amber/10'
+                    : 'opacity-40 border-dashed border-neutral-700 bg-black/20'
                 }`}
               >
                 {isStamped && (
-                  <div className="absolute top-1 right-1">
-                    <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                  <div className="absolute top-1.5 right-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                   </div>
                 )}
                 <div className="text-[10px] font-mono font-bold text-himalaya-mist">
-                  STAMP #{idx + 1}
+                  HALT #{idx + 1}
                 </div>
-                <div className="text-xs font-bold mt-0.5 text-inherit truncate">
+                <div className="text-xs font-bold mt-1 text-inherit truncate font-serif">
                   {st.name.split(' ')[0]}
                 </div>
-                <div className="text-[10px] font-mono text-himalaya-amber">
+                <div className="text-[11px] font-mono font-bold text-amber-glow mt-0.5">
                   {st.elevationM}m
                 </div>
               </div>
@@ -200,85 +200,85 @@ export const TraveloguePassport: React.FC<TraveloguePassportProps> = ({
 
       {/* Rough Notes Logger */}
       <div
-        className={`p-4 rounded-2xl transition-all ${
+        className={`p-6 sm:p-8 rounded-3xl transition-all duration-300 ${
           isSunlight
             ? 'card-sunlight'
-            : 'bg-himalaya-card border border-himalaya-border'
+            : 'glass-panel text-parchment'
         }`}
       >
-        <div className="flex items-center gap-2 mb-2">
-          <PenTool className="w-4 h-4 text-himalaya-amber" />
-          <h3 className="text-sm font-bold text-inherit">
-            Jot Window Notes & Moments
+        <div className="flex items-center gap-2 mb-4 border-b border-inherit/20 pb-3">
+          <PenTool className="w-4 h-4 text-rail-gold" />
+          <h3 className="text-base font-bold text-inherit font-serif">
+            Jot Window Notes & Passenger Memories
           </h3>
         </div>
 
-        <form onSubmit={handleAddNote} className="space-y-2">
+        <form onSubmit={handleAddNote} className="space-y-3">
           <div className="relative">
             <input
               type="text"
               value={newNote}
               onChange={(e) => setNewNote(e.target.value)}
               placeholder={`Logging note at ${currentStation.name} (${currentStation.elevationM}m)...`}
-              className={`w-full py-2 pl-3 pr-16 rounded-xl text-xs outline-none transition-all ${
+              className={`w-full py-3.5 pl-4 pr-24 rounded-2xl text-xs sm:text-sm outline-none transition-all duration-200 shadow-inner ${
                 isSunlight
-                  ? 'bg-neutral-100 text-black border-2 border-black placeholder:text-neutral-500'
-                  : 'bg-[#0a120e] text-white border border-himalaya-border placeholder:text-neutral-500'
+                  ? 'bg-neutral-100 text-black border-2 border-black placeholder:text-neutral-500 focus:bg-white'
+                  : 'bg-[#08150f] text-parchment border border-rail-gold/30 focus:border-amber-glow placeholder:text-neutral-500'
               }`}
             />
             <button
               type="submit"
               disabled={!newNote.trim()}
-              className={`absolute right-1.5 top-1/2 transform -translate-y-1/2 px-2.5 py-1 rounded-lg text-xs font-bold disabled:opacity-30 ${
+              className={`absolute right-2 top-1/2 transform -translate-y-1/2 px-4 py-2 rounded-xl text-xs font-bold disabled:opacity-30 transition-all ${
                 isSunlight
                   ? 'bg-black text-white'
-                  : 'bg-himalaya-pine text-white hover:bg-himalaya-forest'
+                  : 'bg-rail-gold hover:bg-amber-glow text-black shadow-glow-amber'
               }`}
             >
-              Add
+              Add Note
             </button>
           </div>
         </form>
 
         {/* Existing Notes Feed */}
-        <div className="mt-3 space-y-2 max-h-48 overflow-y-auto pr-1">
+        <div className="mt-5 space-y-3 max-h-56 overflow-y-auto pr-1">
           {notes.map((note) => (
             <div
               key={note.id}
-              className="p-2.5 rounded-xl bg-black/20 border border-inherit flex items-start justify-between gap-2 text-xs"
+              className="p-4 rounded-2xl bg-black/30 border border-inherit/20 flex items-start justify-between gap-3 text-xs sm:text-sm shadow-sm"
             >
               <div>
-                <div className="flex items-center gap-1.5 text-[10px] text-himalaya-mist font-semibold">
-                  <MapPin className="w-3 h-3 text-himalaya-emerald" />
+                <div className="flex items-center gap-2 text-[11px] text-himalaya-mist font-semibold font-mono">
+                  <MapPin className="w-3.5 h-3.5 text-emerald-400" />
                   <span>{note.stationName}</span>
                   <span>•</span>
                   <span>{note.timestamp}</span>
                 </div>
-                <p className="mt-1 text-inherit">{note.text}</p>
+                <p className="mt-1 text-inherit leading-relaxed font-serif italic text-neutral-200">"{note.text}"</p>
               </div>
               <button
                 onClick={() => handleDeleteNote(note.id)}
                 className="p-1 text-neutral-500 hover:text-red-400 transition-all"
                 title="Delete note"
               >
-                <Trash2 className="w-3 h-3" />
+                <Trash2 className="w-4 h-4" />
               </button>
             </div>
           ))}
         </div>
 
         {/* Action: Generate Stitched Travelogue */}
-        <div className="mt-4 pt-3 border-t border-inherit flex gap-2">
+        <div className="mt-6 pt-4 border-t border-inherit/20">
           <button
             onClick={handleGenerateStory}
-            className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
+            className={`w-full py-3.5 px-4 rounded-2xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 ${
               isSunlight
                 ? 'bg-black text-white hover:bg-neutral-800'
-                : 'bg-himalaya-pine hover:bg-himalaya-forest text-white'
+                : 'bg-rail-gold hover:bg-amber-glow text-black shadow-glow-amber'
             }`}
           >
-            <Sparkles className="w-3.5 h-3.5 text-himalaya-amber" />
-            <span>Generate On-Device Travelogue</span>
+            <Sparkles className="w-4 h-4" />
+            <span>Generate On-Device Travelogue Narrative</span>
           </button>
         </div>
       </div>
@@ -286,30 +286,30 @@ export const TraveloguePassport: React.FC<TraveloguePassportProps> = ({
       {/* Generated Travelogue Story Card */}
       {generatedStory && (
         <div
-          className={`p-4 rounded-2xl transition-all ${
+          className={`p-6 sm:p-8 rounded-3xl transition-all duration-300 ${
             isSunlight
               ? 'card-sunlight'
-              : 'bg-himalaya-card border border-himalaya-border shadow-lg'
+              : 'glass-panel text-parchment'
           }`}
         >
-          <div className="flex items-center justify-between border-b pb-2 border-inherit text-xs">
-            <span className="font-bold text-himalaya-amber flex items-center gap-1">
-              <BookOpen className="w-4 h-4" />
+          <div className="flex items-center justify-between border-b pb-3.5 border-inherit/20 text-xs">
+            <span className="font-bold text-amber-glow flex items-center gap-1.5 font-serif text-base">
+              <BookOpen className="w-4 h-4 text-rail-gold" />
               <span>Stitched Travelogue Card</span>
             </span>
             <div className="flex items-center gap-2">
               <button
                 onClick={handleShare}
                 disabled={isSharing}
-                className="flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-himalaya-forest/50 text-himalaya-amber hover:bg-himalaya-forest disabled:opacity-50"
+                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-rail-gold text-black hover:bg-amber-glow disabled:opacity-50 transition-all shadow-sm"
               >
-                {isCopied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5" />}
-                <span>{isSharing ? "Sharing..." : isCopied ? "Copied!" : "Share Story"}</span>
+                {isCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                <span>{isSharing ? "Sharing..." : isCopied ? "Copied!" : "Share / Copy"}</span>
               </button>
             </div>
           </div>
 
-          <div className="mt-3 p-3 rounded-xl bg-black/20 border border-inherit text-xs whitespace-pre-wrap font-sans leading-relaxed text-inherit">
+          <div className="mt-4 p-5 rounded-2xl bg-black/30 border border-inherit/20 text-xs sm:text-sm whitespace-pre-wrap font-serif leading-relaxed text-inherit">
             {generatedStory}
           </div>
         </div>

@@ -50,12 +50,12 @@ export const OfflineStatusBadge: React.FC<{ isSunlight: boolean }> = ({ isSunlig
     <div className="flex items-center gap-2">
       {/* Offline Guarantee Pill */}
       <div 
-        className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold tracking-wide transition-all ${
+        className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wide transition-all shadow-sm ${
           isSunlight 
             ? 'badge-sunlight border border-black' 
             : !isOnline
-              ? 'bg-amber-900/40 text-amber-300 border border-amber-600/40'
-              : 'bg-himalaya-forest/60 text-himalaya-snow border border-himalaya-border'
+              ? 'bg-amber-950/60 text-amber-300 border border-amber-600/50 shadow-glow-amber/20'
+              : 'bg-emerald-950/60 text-emerald-300 border border-emerald-700/40 shadow-glow-emerald/10'
         }`}
         title="Works 100% offline in Airplane Mode with pre-cached local RAG and phrase audio"
       >
@@ -64,24 +64,25 @@ export const OfflineStatusBadge: React.FC<{ isSunlight: boolean }> = ({ isSunlig
         ) : (
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
         )}
-        <span>{!isOnline ? "Zero Bars (Airplane Mode)" : "100% Offline Ready"}</span>
+        <span className="font-mono text-[11px] font-bold">
+          {!isOnline ? "Zero Bars (Airplane Mode)" : "100% Offline Ready"}
+        </span>
       </div>
 
       {/* PWA Install Button */}
       {deferredPrompt && !installed && (
         <button
           onClick={handleInstallClick}
-          className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition-all shadow-sm ${
+          className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-all shadow-sm active:scale-95 ${
             isSunlight
               ? 'bg-red-700 text-white hover:bg-red-800'
-              : 'bg-himalaya-tea hover:bg-himalaya-amber text-himalaya-dark'
+              : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black shadow-glow-amber/30'
           }`}
         >
           <Download className="w-3 h-3" />
-          <span>Install App</span>
+          <span>Install PWA</span>
         </button>
       )}
     </div>
   );
 };
-

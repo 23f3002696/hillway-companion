@@ -122,7 +122,7 @@ Passengers face severe real-world frictions during this 6–8 hour journey:
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/hillway-companion.git
+git clone https://github.com/23f3002696/hillway-companion.git
 cd hillway-companion
 
 # Install dependencies
